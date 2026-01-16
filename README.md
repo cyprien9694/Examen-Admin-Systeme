@@ -16,9 +16,9 @@ Linux, c’est un peu comme une grande famille : chaque distribution a sa person
 - Autres : Arch Linux, openSUSE, Gentoo, Slackware  
 
 **Positionnement et outils :**  
-- Debian : stable et simple, parfait pour serveur ou PC classique. Outils : `apt`, `dpkg`.  
-- Red Hat : orienté entreprise, support commercial, outils : `yum`/`dnf`, `rpm`.  
-- Autres : pour les utilisateurs expérimentés, outils : `pacman` (Arch), `emerge` (Gentoo), `zypper` (openSUSE).  
+- Debian : c’est le Linux tranquille. Stable, simple à prendre en main, parfait pour un serveur ou un PC classique. Outils principaux : apt et dpkg.  
+- Red Hat : orienté entreprise, avec un vrai support commercial. On utilise yum ou dnf pour gérer les paquets, et rpm pour les fichiers individuels.  
+- Autres : pour ceux qui aiment tout configurer eux-mêmes. Outils : pacman (Arch), emerge (Gentoo), zypper (openSUSE).  
 
 ## Back to basics
 Quelle est la différence fondamentale entre du code qui tourne en mode kernel/superviseur et en mode utilisateur ?
