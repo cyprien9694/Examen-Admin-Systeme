@@ -140,7 +140,7 @@ Outils pratiques :
 - Installer : sudo apt update && sudo apt install elasticsearch  
 - Configurer /etc/elasticsearch/elasticsearch.yml  
 - Activer et démarrer : systemctl enable --now elasticsearch  
-- Vérifier : curl -X GET "localhost:9200/"  
+- Vérifier : curl -X GET localhost:9200/  
 
 ## Hébergement web mutualisé
 
