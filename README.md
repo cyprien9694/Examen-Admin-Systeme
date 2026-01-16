@@ -12,7 +12,7 @@ Linux, c’est un peu comme une grande famille : chaque distribution a sa person
 - **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
 - **Autres** : Arch Linux, openSUSE, Gentoo, Slackware  
 
-### Positionnement et outils
+Positionnement et outils
 
 - **Debian** : c’est le Linux tranquille. Stable, simple à prendre en main, parfait pour un serveur ou un PC classique. Outils principaux : `apt` et `dpkg`.  
 - **Red Hat** : orienté entreprise, avec un vrai support commercial. On utilise `yum` ou `dnf` pour gérer les paquets, et `rpm` pour les fichiers individuels.  
