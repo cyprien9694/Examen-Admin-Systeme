@@ -81,7 +81,7 @@ Si SSH t’avertit qu’il ne reconnaît pas la clef de l’hôte :
 ## Oh les gourmands !
 
 Comment identifier rapidement, avec une seule ligne de commande, les utilisateurs qui consomment le plus d'espace de stockage.
-"_N.B._" Vous pouvez supposer que les répertoires personnels sont tous des sous-répertoires de /home 
+_N.B._ Vous pouvez supposer que les répertoires personnels sont tous des sous-répertoires de /home 
 
 Pour identifier rapidement les utilisateurs qui consomment le plus d’espace dans /home :  
 du -sh /home/* | sort -hr | head -n 10
