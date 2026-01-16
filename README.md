@@ -1,12 +1,11 @@
-# Examen Administration Système - 16 janvier 2026
+Examen Administration Système - 16 janvier 2026
 
----
 
  Les deux familles de Linux
 
 Linux, c’est un peu comme une grande famille : chaque distribution a sa personnalité et ses outils. Voici les principales.
 
-### Principales distributions
+ Principales distributions
 
 - **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS  
 - **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
@@ -20,7 +19,7 @@ Positionnement et outils
 
 ---
 
-## Mode kernel vs utilisateur
+ Mode kernel vs utilisateur
 
 En gros, il y a deux manières de faire tourner du code sur un système :  
 
