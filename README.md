@@ -81,7 +81,7 @@ Si SSH t’avertit qu’il ne reconnaît pas la clef de l’hôte :
 ## Oh les gourmands !
 
 Comment identifier rapidement, avec une seule ligne de commande, les utilisateurs qui consomment le plus d'espace de stockage.
-_N.B._ Vous pouvez supposer que les répertoires personnels sont tous des sous-répertoires de `/home` 
+_N.B._ Vous pouvez supposer que les répertoires personnels sont tous des sous-répertoires de /home 
 
 Pour identifier rapidement les utilisateurs qui consomment le plus d’espace dans /home :  
 du -sh /home/* | sort -hr | head -n 10
@@ -176,16 +176,11 @@ Décrivez votre recherche documentaire, la méthode que vous sélectionnez, les 
 
 Vous avez la charge de gérer un serveur Web sous Debian GNU/Linux, pour héberger plusieurs sites Web (hébergement mutualisé).
 
-- Quels paquets installez-vous ?
-- Comment organisez sous le stockage des différents contenus ?
-- Certains sites ont besoin de PHP, comment l'installez-vous ?
-- Comment pouvez-vous organiser l'enregistrement séparé des visites des différents sites ?
-- Quel(s) outil(s) peuvent vous permettre de fournir une vison des visites de chaque site à chaque Webmaster ?
-
-- Installer les paquets : apache2, php, libapache2-mod-php, mysql-server ou mariadb-server  
-- Organiser les sites : /var/www/site1, /var/www/site2, etc.  
-- Journaux séparés pour chaque site via VirtualHost (CustomLog et ErrorLog)  
-- Statistiques : GoAccess ou AWStats pour chaque webmaster  
+- Quels paquets installez-vous ? Installer les paquets : apache2, php, libapache2-mod-php, mysql-server ou mariadb-server  
+- Comment organisez sous le stockage des différents contenus ? Organiser du stockage : /var/www/site1, /var/www/site2, etc.   
+- Certains sites ont besoin de PHP, comment l'installez-vous ? Installer PHP : sudo apt install php libapache2-mod-php php-mysql, tester via info.php
+- Comment pouvez-vous organiser l'enregistrement séparé des visites des différents sites ? Journaux séparés pour chaque site via VirtualHost (CustomLog et ErrorLog) 
+- Quel(s) outil(s) peuvent vous permettre de fournir une vison des visites de chaque site à chaque Webmaster ? Statistiques : GoAccess ou AWStats pour chaque webmaster  
 
 
 
