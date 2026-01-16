@@ -1,94 +1,83 @@
 # Examen Administration Système - 16 janvier 2026
-
-Ce README reprend toutes les questions de l’examen et apporte des réponses complètes et pratiques, dans mon style.
-
 ---
 
 ## Les deux familles
 
 ### Principales distributions
 
-- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS  
-- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
-- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware  
+- Famille Debian : Debian, Ubuntu, Linux Mint, Pop!_OS  
+- Famille Red Hat : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
+- Autres : Arch Linux, openSUSE, Gentoo, Slackware  
 
-### Positionnements et outils d’administration
+### Positionnement et outils
 
-- Debian : stable, polyvalent, beaucoup utilisé pour les serveurs et postes de travail. On gère avec `apt` et `dpkg`.  
-- Red Hat : plus orienté entreprise, support commercial, outils principaux : `yum` ou `dnf`, `rpm`.  
-- Autres : Arch et Gentoo pour ceux qui veulent tout configurer à fond, rolling release, gestion avec `pacman` ou `emerge`.
-
-En résumé, Debian = tranquille et stable, Red Hat = pro et entreprise, les autres = bidouille et apprentissage poussé.
+- Debian : stable, simple à utiliser, adapté à la fois pour le serveur et le poste de travail. Outils principaux : `apt` et `dpkg`.  
+- Red Hat : orienté entreprise, support commercial. Outils : `yum` ou `dnf`, `rpm`.  
+- Autres : pour les curieux qui veulent tout configurer eux-mêmes. Outils : `pacman` (Arch), `emerge` (Gentoo), `zypper` (openSUSE).  
 
 ---
 
 ## Back to basics
 
-**Différence kernel / utilisateur** :  
-
-- Le **kernel** (ou mode superviseur) a tous les droits, accès direct au matériel et aux instructions critiques.  
-- Le **mode utilisateur** a des droits limités, ne peut pas tout toucher, isolé pour protéger le système.  
+- Mode kernel / superviseur : accès total au système et au matériel, peut tout faire.  
+- Mode utilisateur : accès limité, isolé pour la sécurité, ne peut pas toucher aux fonctions critiques.  
 
 ---
 
 ## Qui est où ?
 
-| Répertoire | Contenu |
-|------------|---------|
-| /etc       | fichiers de configuration du système |
-| /bin et /usr/bin | programmes essentiels utilisables par tous |
-| /sbin et /usr/sbin | programmes réservés à l’administration (root) |
-| /home      | répertoires personnels des utilisateurs |
-| /var       | fichiers qui changent souvent : logs, bases, spool |
-| /var/log   | journaux système et applications |
-| /var/lib   | données persistantes des services |
+- `/etc` : fichiers de configuration du système  
+- `/bin` et `/usr/bin` : programmes pour tous les utilisateurs  
+- `/sbin` et `/usr/sbin` : programmes pour l’administration (root)  
+- `/home` : dossiers personnels des utilisateurs  
+- `/var` : fichiers variables comme les logs ou bases de données  
+- `/var/log` : journaux du système et des applications  
+- `/var/lib` : données persistantes des services  
 
 ---
 
 ## Où est le pilote ?
 
-Pour gérer les modules et pilotes sous Linux :  
-
-- Liste des pilotes chargés : `lsmod`  
-- Fichier binaire du module : `modinfo <module>`  
-- Charger/décharger : `modprobe <module>` / `rmmod <module>`  
-- Messages émis : `dmesg | grep <module>` ou `/var/log/kern.log`  
+- Voir les pilotes chargés : `lsmod`  
+- Infos sur un module : `modinfo <module>`  
+- Charger / décharger : `modprobe <module>` ou `rmmod <module>`  
+- Messages des modules : `dmesg | grep <module>` ou `/var/log/kern.log`  
 
 ---
 
-## MS Windows (WSL)
+## MS Windows et WSL
 
-- WSL permet de lancer Linux **dans Windows** sans machine virtuelle.  
-- Accès aux fichiers Windows via `/mnt/c`.  
-- On peut utiliser Bash et tous les outils Linux.  
+- WSL permet de lancer Linux dans Windows sans machine virtuelle.  
+- On peut accéder aux fichiers Windows via `/mnt/c`.  
+- Permet d’utiliser Bash et tous les outils Linux.  
 - Protocoles utilisés : NT Kernel et pipes UNIX.  
 
 ---
 
-## On commence (sécuriser SSH)
+## Sécurisation SSH
 
-Après installation d’un Linux, pour sécuriser SSH :  
+Après installation :  
 
-1. Interdire la connexion root : `/etc/ssh/sshd_config` → `PermitRootLogin no`  
-2. Changer le port SSH par défaut  
-3. Utiliser uniquement des clés publiques/privées  
-4. Activer firewall et fail2ban pour limiter les attaques  
+- Interdire la connexion root (`PermitRootLogin no`)  
+- Changer le port SSH par défaut  
+- Utiliser uniquement des clés SSH publiques/privées  
+- Activer un firewall et fail2ban  
 
 ---
 
-## Alerte ! Problème de clef publique
+## Problème de clef publique
 
 Si SSH dit que la clef de l’hôte n’est pas reconnue :  
 
 - Vérifier la clef  
-- Supprimer la mauvaise clef dans `~/.ssh/known_hosts`  
-- Pourquoi : pour éviter les attaques Man-in-the-Middle  
+- Supprimer l’ancienne clef dans `~/.ssh/known_hosts`  
+- Cela permet d’éviter les attaques Man-in-the-Middle  
 
 ---
 
-## Oh les gourmands !
+## Utilisateurs gourmands
 
-Pour savoir qui prend le plus de place sur le disque (répertoires sous /home) :
+Pour voir qui prend le plus de place dans `/home` :  
 
 ```bash
 du -sh /home/* | sort -hr | head -n 10
