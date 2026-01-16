@@ -1,86 +1,97 @@
 # Examen Administration Système - 16 janvier 2026
 
-Bienvenue sur le dépôt pour mon examen d’administration système. Ce document reprend les questions posées et apporte des réponses simples et pratiques.
+Bienvenue dans ce dépôt pour mon examen d’administration système.  
+Ici, j’ai repris toutes les questions posées et j’ai essayé d’y répondre de manière claire et pratique, avec des conseils simples pour un administrateur débutant ou confirmé.
 
 ---
 
-## Les deux familles
+## Les deux familles de Linux
+
+Linux, c’est un peu comme une grande famille : chaque distribution a sa personnalité et ses outils. Voici les principales.
 
 ### Principales distributions
 
-- Famille Debian : Debian, Ubuntu, Linux Mint, Pop!_OS  
-- Famille Red Hat : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
-- Autres : Arch Linux, openSUSE, Gentoo, Slackware  
+- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS  
+- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
+- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware  
 
 ### Positionnement et outils
 
-- Debian : stable, simple à utiliser, adapté à la fois pour le serveur et le poste de travail. Outils principaux : `apt` et `dpkg`.  
-- Red Hat : orienté entreprise, support commercial. Outils : `yum` ou `dnf`, `rpm`.  
-- Autres : pour les curieux qui veulent tout configurer eux-mêmes. Outils : `pacman` (Arch), `emerge` (Gentoo), `zypper` (openSUSE).  
+- **Debian** : c’est le Linux tranquille. Stable, simple à prendre en main, parfait pour un serveur ou un PC classique. Outils principaux : `apt` et `dpkg`.  
+- **Red Hat** : orienté entreprise, avec un vrai support commercial. On utilise `yum` ou `dnf` pour gérer les paquets, et `rpm` pour les fichiers individuels.  
+- **Autres** : pour ceux qui aiment tout configurer eux-mêmes. Outils : `pacman` (Arch), `emerge` (Gentoo), `zypper` (openSUSE).  
 
 ---
 
-## Back to basics
+## Mode kernel vs utilisateur
 
-- Mode kernel / superviseur : accès total au système et au matériel, peut tout faire.  
-- Mode utilisateur : accès limité, isolé pour la sécurité, ne peut pas toucher aux fonctions critiques.  
+En gros, il y a deux manières de faire tourner du code sur un système :  
 
----
-
-## Qui est où ?
-
-- `/etc` : fichiers de configuration du système  
-- `/bin` et `/usr/bin` : programmes pour tous les utilisateurs  
-- `/sbin` et `/usr/sbin` : programmes pour l’administration (root)  
-- `/home` : dossiers personnels des utilisateurs  
-- `/var` : fichiers variables comme les logs ou bases de données  
-- `/var/log` : journaux du système et des applications  
-- `/var/lib` : données persistantes des services  
+- **Kernel / superviseur** : le noyau a tous les droits. Il peut accéder à tout le matériel et gérer le système, rien ne lui échappe.  
+- **Utilisateur** : limité et isolé. Chaque programme tourne dans sa “petite bulle” pour ne pas casser le système.  
 
 ---
 
-## Où est le pilote ?
+## Où se trouvent les choses ?
+
+Voici un petit guide pour savoir où chercher quand on administre un système Linux.
+
+- `/etc` : tous les fichiers de configuration du système.  
+- `/bin` et `/usr/bin` : les programmes que tout le monde peut utiliser.  
+- `/sbin` et `/usr/sbin` : programmes réservés à l’administration (root).  
+- `/home` : dossiers personnels des utilisateurs.  
+- `/var` : fichiers qui changent tout le temps, comme les logs ou les bases de données.  
+- `/var/log` : les journaux du système et des applications.  
+- `/var/lib` : données persistantes utilisées par les services.  
+
+---
+
+## Gestion des pilotes
+
+Pour savoir ce qui se passe avec les pilotes (drivers) sur Linux :  
 
 - Voir les pilotes chargés : `lsmod`  
 - Infos sur un module : `modinfo <module>`  
-- Charger / décharger : `modprobe <module>` ou `rmmod <module>`  
-- Messages des modules : `dmesg | grep <module>` ou `/var/log/kern.log`  
+- Charger ou décharger un module : `modprobe <module>` ou `rmmod <module>`  
+- Messages générés par un module : `dmesg | grep <module>` ou `/var/log/kern.log`  
 
 ---
 
-## MS Windows et WSL
+## Windows et WSL
 
-- WSL permet de lancer Linux dans Windows sans machine virtuelle.  
-- On peut accéder aux fichiers Windows via `/mnt/c`.  
-- Permet d’utiliser Bash et tous les outils Linux.  
-- Protocoles utilisés : NT Kernel et pipes UNIX.  
+Si tu utilises Windows, WSL est pratique :  
+
+- Il permet de lancer Linux directement sans machine virtuelle.  
+- Tu peux accéder à tes fichiers Windows via `/mnt/c`.  
+- Tu peux utiliser Bash et tous les outils Linux.  
+- Les protocoles utilisés : NT Kernel et pipes UNIX.  
 
 ---
 
-## Sécurisation SSH
+## Sécuriser SSH
 
-Après installation :  
+Après l’installation d’un Linux, il vaut mieux sécuriser SSH :  
 
-- Interdire la connexion root (`PermitRootLogin no`)  
+- Interdire la connexion directe de root (`PermitRootLogin no`)  
 - Changer le port SSH par défaut  
 - Utiliser uniquement des clés SSH publiques/privées  
-- Activer un firewall et fail2ban  
+- Activer un firewall et éventuellement fail2ban  
 
 ---
 
 ## Problème de clef publique
 
-Si SSH dit que la clef de l’hôte n’est pas reconnue :  
+Si SSH t’avertit qu’il ne reconnaît pas la clef de l’hôte :  
 
-- Vérifier la clef  
-- Supprimer l’ancienne clef dans `~/.ssh/known_hosts`  
-- Cela permet d’éviter les attaques Man-in-the-Middle  
+- Vérifie la clef.  
+- Supprime la ligne correspondante dans `~/.ssh/known_hosts`.  
+- Ça évite les attaques “Man-in-the-Middle”.  
 
 ---
 
-## Utilisateurs gourmands
+## Qui prend le plus de place ?
 
-Pour voir qui prend le plus de place dans `/home` :  
+Pour identifier rapidement les utilisateurs qui consomment le plus d’espace dans `/home` :  
 
 ```bash
 du -sh /home/* | sort -hr | head -n 10
