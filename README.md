@@ -2,7 +2,7 @@
 
 ---
 
-## Les deux familles de Linux
+ Les deux familles de Linux
 
 Linux, c’est un peu comme une grande famille : chaque distribution a sa personnalité et ses outils. Voici les principales.
 
