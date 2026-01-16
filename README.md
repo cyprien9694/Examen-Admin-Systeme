@@ -1,7 +1,6 @@
 # Examen Administration Système - 16 janvier 2026
 
 Bienvenue dans ce dépôt pour mon examen d’administration système.  
-Ici, j’ai repris toutes les questions posées et j’ai essayé d’y répondre de manière claire et pratique, avec des conseils simples pour un administrateur débutant ou confirmé.
 
 ## Les deux familles de Linux
 
