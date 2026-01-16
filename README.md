@@ -136,7 +136,7 @@ Pour un service nommé bidule :
 - Activer au démarrage : systemctl enable bidule  
 - Voir ses messages : journalctl -u bidule  
 - Redémarrer : systemctl restart bidule  
-- Trouver le paquet d’origine : dpkg -S $(which bidule) (Debian) ou rpm -qf $(which bidule) (Red Hat)  
+- Trouver le paquet d’origine : dpkg -S ``$(which bidule) (Debian) ou rpm -qf $(which bidule) (Red Hat)  
 
 ## Zut
 
