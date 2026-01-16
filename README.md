@@ -43,9 +43,9 @@ Indiquez, en quelques mots, pour ces répertoires, ce qu'ils sont supposés cont
 Comment retrouver, sous GNU/Linux :
 
 - La liste des pilotes chargées en mémoire ?  Voir les pilotes chargés : lsmod  
-- La liste des fichiers binaires _(modules)_ qui les fournissent ? Infos sur un module : modinfo <module>  
-- Forcer leur chargement et leur déchargement ? Charger ou décharger un module : modprobe <module> ou rmmod <module>  
-- Les messages qu'ils ont émis ? Messages générés par un module : dmesg | grep <module> ou /var/log/kern.log  
+- La liste des fichiers binaires _(modules)_ qui les fournissent ? Infos sur un module : modinfo ``<module>  
+- Forcer leur chargement et leur déchargement ? Charger ou décharger un module : modprobe <module> ou rmmod ``<module>  
+- Les messages qu'ils ont émis ? Messages générés par un module : dmesg | grep ``<module> ou /var/log/kern.log  
 
 ## MS Windows
 
@@ -123,7 +123,7 @@ Si le système tombe, pour comprendre ce qui s’est passé :
 
 - Vérifier les logs : /var/log/syslog ou /var/log/messages  
 - Journaux récents : journalctl -xe  
-- Logs d’un service précis : journalctl -u <service>  
+- Logs d’un service précis : journalctl -u ``<service>  
 
 ## On surveille...
 
