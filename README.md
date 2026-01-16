@@ -1,4 +1,7 @@
 # Examen Administration Système - 16 janvier 2026
+
+Bienvenue sur le dépôt pour mon examen d’administration système. Ce document reprend les questions posées et apporte des réponses simples et pratiques.
+
 ---
 
 ## Les deux familles
