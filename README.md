@@ -1,34 +1,33 @@
 # Examen Administration Système - 16 janvier 2026
 
+Ce README reprend toutes les questions de l’examen et apporte des réponses complètes et pratiques, dans mon style.
+
 ---
 
 ## Les deux familles
 
-### Les distributions principales
+### Principales distributions
 
-- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS. Perso, j’aime bien Ubuntu pour bosser vite.  
-- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux. Plus orienté entreprise et serveur.  
-- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware. Là c’est plus pour bidouiller et apprendre vraiment le système.  
+- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS  
+- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
+- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware  
 
-### Positionnements et outils
+### Positionnements et outils d’administration
 
-| Famille | Positionnement | Outils qu’on utilise souvent |
-|---------|----------------|-----------------------------|
-| Debian  | Stable, open source, polyvalente | apt, dpkg, /etc/apt, systemd |
-| Red Hat | Entreprise, support commercial | yum/dnf, rpm, /etc/yum.repos.d, systemd |
-| Autres  | Rolling release, perso/custom | pacman (Arch), zypper (openSUSE), emerge (Gentoo) |
+- Debian : stable, polyvalent, beaucoup utilisé pour les serveurs et postes de travail. On gère avec `apt` et `dpkg`.  
+- Red Hat : plus orienté entreprise, support commercial, outils principaux : `yum` ou `dnf`, `rpm`.  
+- Autres : Arch et Gentoo pour ceux qui veulent tout configurer à fond, rolling release, gestion avec `pacman` ou `emerge`.
 
-En gros, Debian c’est tranquille pour débuter, Red Hat c’est pro, les autres c’est pour les curieux qui veulent tout configurer eux-mêmes.  
+En résumé, Debian = tranquille et stable, Red Hat = pro et entreprise, les autres = bidouille et apprentissage poussé.
 
 ---
 
 ## Back to basics
 
-**Kernel vs utilisateur**  
+**Différence kernel / utilisateur** :  
 
-- Le **kernel** peut tout faire, accès total au matos et aux instructions sensibles.  
-- L’utilisateur ne peut pas toucher au système directement, sinon le kernel l’arrête.  
-- En gros, kernel = boss, utilisateur = employé qui suit les règles.  
+- Le **kernel** (ou mode superviseur) a tous les droits, accès direct au matériel et aux instructions critiques.  
+- Le **mode utilisateur** a des droits limités, ne peut pas tout toucher, isolé pour protéger le système.  
 
 ---
 
@@ -36,57 +35,60 @@ En gros, Debian c’est tranquille pour débuter, Red Hat c’est pro, les autre
 
 | Répertoire | Contenu |
 |------------|---------|
-| /etc       | Tous les fichiers de config du système |
-| /bin et /usr/bin | Programmes que tout le monde peut lancer |
-| /sbin et /usr/sbin | Programmes pour l’admin (root) |
-| /home      | Répertoires perso des utilisateurs |
-| /var       | Fichiers variables : logs, bases, spool |
-| /var/log   | Logs du système et des applis |
-| /var/lib   | Données persistantes des services |
+| /etc       | fichiers de configuration du système |
+| /bin et /usr/bin | programmes essentiels utilisables par tous |
+| /sbin et /usr/sbin | programmes réservés à l’administration (root) |
+| /home      | répertoires personnels des utilisateurs |
+| /var       | fichiers qui changent souvent : logs, bases, spool |
+| /var/log   | journaux système et applications |
+| /var/lib   | données persistantes des services |
 
 ---
 
-## Les pilotes
+## Où est le pilote ?
 
-- Voir ce qui est chargé : `lsmod`  
-- Info sur un module : `modinfo <module>`  
+Pour gérer les modules et pilotes sous Linux :  
+
+- Liste des pilotes chargés : `lsmod`  
+- Fichier binaire du module : `modinfo <module>`  
 - Charger/décharger : `modprobe <module>` / `rmmod <module>`  
-- Messages qu’ils ont générés : `dmesg | grep <module>` ou regarder `/var/log/kern.log`  
+- Messages émis : `dmesg | grep <module>` ou `/var/log/kern.log`  
 
 ---
 
-## Windows et WSL
+## MS Windows (WSL)
 
-- WSL permet de lancer Linux **dans Windows**, pas besoin de VM.  
-- Tu peux accéder à tes fichiers Windows via `/mnt/c`.  
-- On peut utiliser bash et tous les outils Linux.  
-- Les communications passent par le kernel Windows et des pipes UNIX.  
+- WSL permet de lancer Linux **dans Windows** sans machine virtuelle.  
+- Accès aux fichiers Windows via `/mnt/c`.  
+- On peut utiliser Bash et tous les outils Linux.  
+- Protocoles utilisés : NT Kernel et pipes UNIX.  
 
 ---
 
-## Sécurisation SSH
+## On commence (sécuriser SSH)
 
-Après avoir installé Linux, je fais toujours ça :  
+Après installation d’un Linux, pour sécuriser SSH :  
 
 1. Interdire la connexion root : `/etc/ssh/sshd_config` → `PermitRootLogin no`  
-2. Changer le port par défaut  
-3. Utiliser des clés SSH plutôt que mot de passe  
+2. Changer le port SSH par défaut  
+3. Utiliser uniquement des clés publiques/privées  
 4. Activer firewall et fail2ban pour limiter les attaques  
 
 ---
 
-## Clé publique inconnue
+## Alerte ! Problème de clef publique
 
-- Si SSH dit que la clé de l’hôte est inconnue :  
-  - Vérifier la clé  
-  - Supprimer l’ancienne dans `~/.ssh/known_hosts`  
-  - C’est pour éviter les attaques Man-in-the-Middle  
+Si SSH dit que la clef de l’hôte n’est pas reconnue :  
+
+- Vérifier la clef  
+- Supprimer la mauvaise clef dans `~/.ssh/known_hosts`  
+- Pourquoi : pour éviter les attaques Man-in-the-Middle  
 
 ---
 
-## Les utilisateurs gourmands
+## Oh les gourmands !
 
-Pour savoir qui prend le plus de place :  
+Pour savoir qui prend le plus de place sur le disque (répertoires sous /home) :
 
 ```bash
 du -sh /home/* | sort -hr | head -n 10
