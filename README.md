@@ -1,4 +1,4 @@
-# Examen Administration Système  Cyprien Bidaud - 16 janvier 2026
+# Examen Administration système 16 janvier 2026
 
 Attendu : une url menant à un fichier README.md (format _markdown_) sur une plateforme GIT publique _(codeberg, gitlab, github, ...)_.
 reprenant ce document en le complétant. 
