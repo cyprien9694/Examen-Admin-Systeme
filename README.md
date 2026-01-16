@@ -130,7 +130,7 @@ Outils pratiques :
 - systemctl status apache2 ou nginx → vérifier que le service tourne  
 - journalctl -u apache2 → logs du service  
 - netstat -tulnp ou ss -tulnp → quels ports sont ouverts  
-- curl -I "http://localhost" → tester la réponse HTTP  
+- curl -I http://localhost → tester la réponse HTTP  
 - ping / traceroute → vérifier le réseau  
 - tcpdump → analyser le trafic  
 
