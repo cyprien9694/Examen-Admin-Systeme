@@ -1,7 +1,5 @@
 # Examen Administration Système - 16 janvier 2026
 
-Bon, voilà mon document pour l’examen. J’ai repris toutes les questions et essayé de répondre de façon claire et pratique, avec mes mots.  
-
 ---
 
 ## Les deux familles
