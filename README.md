@@ -1,33 +1,36 @@
 # Examen Administration Système - 16 janvier 2026
 
-Ce document reprend les questions de l’examen et y apporte des réponses synthétiques et pratiques.
+Bon, voilà mon document pour l’examen. J’ai repris toutes les questions et essayé de répondre de façon claire et pratique, avec mes mots.  
 
 ---
 
 ## Les deux familles
 
-### Principales distributions
+### Les distributions principales
 
-- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS  
-- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux  
-- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware  
+- **Famille Debian** : Debian, Ubuntu, Linux Mint, Pop!_OS. Perso, j’aime bien Ubuntu pour bosser vite.  
+- **Famille Red Hat** : Red Hat Enterprise Linux (RHEL), Fedora, CentOS, Rocky Linux, AlmaLinux. Plus orienté entreprise et serveur.  
+- **Autres** : Arch Linux, openSUSE, Gentoo, Slackware. Là c’est plus pour bidouiller et apprendre vraiment le système.  
 
-### Positionnements et outils d’administration
+### Positionnements et outils
 
-| Famille | Positionnement | Outils principaux |
-|---------|----------------|-----------------|
-| Debian  | Stabilité, open source, polyvalente | apt, dpkg, /etc/apt, systemd |
+| Famille | Positionnement | Outils qu’on utilise souvent |
+|---------|----------------|-----------------------------|
+| Debian  | Stable, open source, polyvalente | apt, dpkg, /etc/apt, systemd |
 | Red Hat | Entreprise, support commercial | yum/dnf, rpm, /etc/yum.repos.d, systemd |
-| Autres  | Rolling release (Arch), personnalisation (Gentoo) | pacman (Arch), zypper (openSUSE), emerge (Gentoo) |
+| Autres  | Rolling release, perso/custom | pacman (Arch), zypper (openSUSE), emerge (Gentoo) |
+
+En gros, Debian c’est tranquille pour débuter, Red Hat c’est pro, les autres c’est pour les curieux qui veulent tout configurer eux-mêmes.  
 
 ---
 
 ## Back to basics
 
-**Mode kernel/superviseur vs mode utilisateur**  
+**Kernel vs utilisateur**  
 
-- Kernel : Accès complet au matériel et aux ressources critiques, exécution privilégiée  
-- Utilisateur : Accès limité, ne peut pas exécuter certaines instructions sensibles, isolation pour sécurité  
+- Le **kernel** peut tout faire, accès total au matos et aux instructions sensibles.  
+- L’utilisateur ne peut pas toucher au système directement, sinon le kernel l’arrête.  
+- En gros, kernel = boss, utilisateur = employé qui suit les règles.  
 
 ---
 
@@ -35,52 +38,57 @@ Ce document reprend les questions de l’examen et y apporte des réponses synth
 
 | Répertoire | Contenu |
 |------------|---------|
-| /etc       | Fichiers de configuration système |
-| /bin et /usr/bin | Binaries essentiels pour tous les utilisateurs |
-| /sbin et /usr/sbin | Binaries pour l’administration système (root) |
-| /home      | Répertoires personnels des utilisateurs |
-| /var       | Fichiers variables : logs, bases de données, spool |
-| /var/log   | Logs système et applicatifs |
+| /etc       | Tous les fichiers de config du système |
+| /bin et /usr/bin | Programmes que tout le monde peut lancer |
+| /sbin et /usr/sbin | Programmes pour l’admin (root) |
+| /home      | Répertoires perso des utilisateurs |
+| /var       | Fichiers variables : logs, bases, spool |
+| /var/log   | Logs du système et des applis |
 | /var/lib   | Données persistantes des services |
 
 ---
 
-## Où est le pilote ?
+## Les pilotes
 
-- Liste des pilotes chargés : `lsmod`  
-- Fichiers binaires des modules : `modinfo <module>`  
+- Voir ce qui est chargé : `lsmod`  
+- Info sur un module : `modinfo <module>`  
 - Charger/décharger : `modprobe <module>` / `rmmod <module>`  
-- Messages : `dmesg | grep <module>` ou `/var/log/kern.log`  
+- Messages qu’ils ont générés : `dmesg | grep <module>` ou regarder `/var/log/kern.log`  
 
 ---
 
-## MS Windows (WSL)
+## Windows et WSL
 
-- Permet d’exécuter GNU/Linux sur Windows sans VM  
-- Accès aux fichiers Windows (/mnt/c)  
-- Support Bash et outils GNU/Linux  
-- Protocoles utilisés : NT Kernel, pipes UNIX  
-
----
-
-## Sécurisation SSH après installation
-
-1. Désactiver root login : `/etc/ssh/sshd_config` → `PermitRootLogin no`  
-2. Changer le port SSH  
-3. Utiliser clés publiques/privées  
-4. Activer firewall et fail2ban  
+- WSL permet de lancer Linux **dans Windows**, pas besoin de VM.  
+- Tu peux accéder à tes fichiers Windows via `/mnt/c`.  
+- On peut utiliser bash et tous les outils Linux.  
+- Les communications passent par le kernel Windows et des pipes UNIX.  
 
 ---
 
-## Problème de clef publique d’hôte
+## Sécurisation SSH
 
-- Vérifier la clef publique de l’hôte  
-- Supprimer la ligne correspondante dans `~/.ssh/known_hosts`  
-- Permet d’éviter attaques Man-in-the-Middle  
+Après avoir installé Linux, je fais toujours ça :  
+
+1. Interdire la connexion root : `/etc/ssh/sshd_config` → `PermitRootLogin no`  
+2. Changer le port par défaut  
+3. Utiliser des clés SSH plutôt que mot de passe  
+4. Activer firewall et fail2ban pour limiter les attaques  
 
 ---
 
-## Utilisateurs qui consomment le plus d’espace
+## Clé publique inconnue
+
+- Si SSH dit que la clé de l’hôte est inconnue :  
+  - Vérifier la clé  
+  - Supprimer l’ancienne dans `~/.ssh/known_hosts`  
+  - C’est pour éviter les attaques Man-in-the-Middle  
+
+---
+
+## Les utilisateurs gourmands
+
+Pour savoir qui prend le plus de place :  
 
 ```bash
 du -sh /home/* | sort -hr | head -n 10
