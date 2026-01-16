@@ -149,4 +149,3 @@ Outils pratiques :
 - Journaux séparés pour chaque site via VirtualHost (CustomLog et ErrorLog)  
 - Statistiques : GoAccess ou AWStats pour chaque webmaster  
 
-Ce README explique tout de manière simple et pratique, comme si tu avais suivi un cours pas à pas, avec des exemples et des conseils pour un vrai administrateur système.
